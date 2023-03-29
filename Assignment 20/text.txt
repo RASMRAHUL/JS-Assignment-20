@@ -1,0 +1,66 @@
+1). How does async/await help with performance and scalability?
+
+Async/await in JavaScript can help with performance and scalability in several ways:
+
+1. Non-blocking code execution: Async/await allows JavaScript to execute asynchronous 
+code in a non-blocking way, meaning that other parts of the code can continue to 
+execute while waiting for the asynchronous operation to complete. This can help 
+improve the overall performance of the application by reducing the time that the 
+application spends waiting for I/O operations to complete.
+
+2. Avoiding callback hell: Async/await can help avoid the problem of callback 
+hell, which occurs when a program makes multiple asynchronous operations that 
+depend on each other. This can lead to code that is difficult to read 
+and maintain. Async/await provides a more natural and sequential way of 
+writing asynchronous code, making it easier to read and maintain.
+
+2).  Is it possible to use async/await with promise chains? If yes,
+how can this be achieved?
+
+Yes, it is possible to use async/await with promise chains in JavaScript.
+
+When using async/await with promises, you can await a promise to resolve 
+and then use the result in the next line of code. This can be useful 
+when you have a chain of promises that depend on the previous promise's result.
+
+Here's an example of using async/await with a promise chain:
+async function getData() {
+  try {
+    const response1 = await fetch('https://example.com/api/data1');
+    const data1 = await response1.json();
+
+    const response2 = await fetch(`https://example.com/api/data2/${data1.id}`);
+    const data2 = await response2.json();
+
+    console.log(data2);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getData();
+
+
+3). Give 3 real world examples where async/await has been used?
+
+Here are three real-world examples where async/await has been used:
+
+1.Web Development: async/await is commonly used in web development for handling 
+asynchronous tasks such as making HTTP requests, accessing databases, and 
+handling user input. For example, a web application that retrieves data 
+from a server and displays it to the user can use async/await to handle 
+the asynchronous nature of the request and improve the user experience.
+
+2.Game Development: async/await can also be used in game development for 
+handling tasks that need to be executed asynchronously, such as loading 
+game assets or handling user input. For example, a game that loads level 
+data from a server can use async/await to handle the asynchronous nature 
+of the request and improve the performance of the game.
+
+3.Desktop Applications: async/await can also be used in desktop applications 
+to handle tasks that need to be executed asynchronously, such as downloading 
+files or processing large amounts of data. For example, a photo editing 
+application that loads and processes large image files can use async/await 
+to handle the asynchronous nature of the operation and improve the 
+responsiveness of the application.
+

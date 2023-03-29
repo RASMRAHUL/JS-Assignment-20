@@ -1,0 +1,86 @@
+8). Is it possible to nest async functions in JavaScript? Explain with
+examples.
+Yes, it is possible to nest async functions in JavaScript.
+
+Nesting async functions means calling an async function inside another 
+async function. When a function is marked as async, it always returns a 
+promise, and this promise can be awaited or used with .then() to handle the result.
+
+Here's an example of nesting async functions in JavaScript:
+
+async function getUser(userId) {
+  try {
+    const userResponse = await fetch(`https://example.com/api/users/${userId}`);
+    const user = await userResponse.json();
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getUserPosts(userId) {
+  try {
+    const user = await getUser(userId);
+    const postsResponse = await fetch(`https://example.com/api/posts/${user.id}`);
+    const posts = await postsResponse.json();
+    return posts;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getUserPosts(1)
+  .then(posts => console.log(posts))
+  .catch(error => console.error(error));
+
+
+9). What is the best way to avoid deadlocks when using
+async/await?
+
+Deadlocks can occur when multiple asynchronous operations depend on 
+each other and are waiting for each other to complete, resulting in 
+a deadlock situation. To avoid deadlocks when using async/await, 
+you can follow these best practices:
+
+1. Avoid calling async functions inside Promise callbacks or then() 
+chains. If you need to call an async function inside a then() chain, 
+use await to wait for the result instead.
+
+2. Use Promise.all() to run multiple async operations in parallel, 
+instead of chaining them sequentially with await. This ensures that 
+all operations are executed concurrently and reduces the chances of deadlocks.
+
+3. Use timeouts or other mechanisms to prevent infinite waiting. 
+If an async operation takes too long to complete, consider canceling 
+or aborting it to avoid blocking other operations.
+
+A4. void blocking the event loop by using setImmediate() or 
+process.nextTick() to defer execution of code until the next 
+iteration of the event loop.
+
+5. Be aware of the potential for deadlocks when using shared 
+resources such as databases, and use transactions or other mechanisms 
+to prevent conflicts.
+
+10). In which scenarios would you use synchronous code instead of
+asynchronous code?
+
+Synchronous code is best used when the task is small and does not require 
+blocking the event loop or waiting for external resources. Here are some 
+scenarios where synchronous code might be preferred over asynchronous code:
+
+1. When performance is not a critical factor: In some scenarios, 
+the performance of the application is not a critical factor, and 
+using synchronous code is simpler and easier to implement than asynchronous code.
+
+2. When the task is small and fast: For small and fast tasks, using 
+asynchronous code can add unnecessary overhead, and synchronous code 
+can be simpler and more efficient.
+
+3. When there is no risk of blocking the event loop: Some tasks, such as 
+mathematical calculations or string manipulations, can be executed quickly 
+and without blocking the event loop, making synchronous code a viable option.
+
+4. When the code is part of a small script or application: In small scripts 
+or applications, using synchronous code can be simpler and more straightforward, 
+as there are fewer moving parts to coordinate and manage.
